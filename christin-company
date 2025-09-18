@@ -1,0 +1,78 @@
+mysql -u christin -p
+
+CREATE DATABASE christin_coperation;
+
+USE christin_coperation;
+
+SHOW TABLES;
+
+
+
+CREATE TABLE department (DeptId INT PRIMARY KEY, DeptName VARCHAR(50), DeptLoc VARCHAR(50));
+
+CREATE TABLE employee (EmpId INT PRIMARY KEY, EmpName VARCHAR(50), DOB DATE, DOJ DATE, Job VARCHAR(50), Salary DECIMAL(10,2));
+
+CREATE TABLE product (ProdId INT PRIMARY KEY, ProdName VARCHAR(50), Price DECIMAL(10,2));
+
+CREATE TABLE sales (SalesId INT PRIMARY KEY, SaleDate DATE, Quantity INT);
+
+
+
+SHOW TABLES;
+
+
+
+INSERT INTO department (DeptId, DeptName, DeptLoc) VALUES (1, 'HR', 'New York'),(2, 'Finance', 'Chicago'),(3, 'IT', 'California');
+
+INSERT INTO employee (EmpId, EmpName, DOB, DOJ, Job, Salary)VALUES (101, 'Alice Smith', '1990-05-14', '2015-06-01', 'Manager', 75000.00),(102,'Bob Johnson', '1985-03-22', '2010-09-15', 'Analyst', 55000.00),(103, 'Carol Lee', '1992-07-30', '2018-01-10', 'Developer', 65000.00);
+
+INSERT INTO product (ProdId, ProdName, Price)VALUES (1, 'Laptop', 3200.00),(2, 'Printer', 500.50),(3, 'Head Phone', 200.75);
+
+INSERT INTO sales (SalesId, Date, Quantity)VALUES (1, '2025-08-01', 3),(2, '2025-08-03', 5),(3, '2025-08-05', 2);
+
+
+
+SELECT * FROM department;
+
+SELECT * FROM employee;
+
+SELECT * FROM product;
+
+SELECT * FROM sales;
+
+
+
+DESCRIBE department;
+
+DESCRIBE employee;
+
+DESCRIBE product;
+
+DESCRIBE sales;
+
+
+
+mysql> ALTER TABLE employee
+    -> ADD deptid INT,
+    -> ADD CONSTRAINT fk_dept FOREIGN KEY (deptid) REFERENCES department(deptid);
+
+mysql> ALTER TABLE sales
+    -> ADD COLUMN empid INT,
+    -> ADD COLUMN prodid INT,
+    -> ADD CONSTRAINT fk_emp FOREIGN KEY (empid) REFERENCES employee(empid),
+    -> ADD CONSTRAINT fk_prod FOREIGN KEY (prodid) REFERENCES product(prodid);
+
+mysql> ALTER TABLE employee
+    ->   MODIFY empName VARCHAR(50) NOT NULL,
+    ->   MODIFY Salary DECIMAL(10,2),
+    ->   ADD CONSTRAINT chk_salary CHECK (Salary > 0);
+
+mysql> ALTER TABLE product
+    ->   MODIFY price DECIMAL(10,2),
+    ->   ADD CONSTRAINT chk_price CHECK (Price >= 0);
+    
+    
+    
+
+
+
