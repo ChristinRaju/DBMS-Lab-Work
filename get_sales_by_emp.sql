@@ -1,0 +1,1 @@
+--Q-10. Write a PL/SQL Function to return sum of sales by EmpId
